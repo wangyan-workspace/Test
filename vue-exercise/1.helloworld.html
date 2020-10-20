@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>helloworld</title>
+</head>
+<body>
+    <div id="app">
+        <!-- {{}} 用于显示数据 -->
+        hello {{msg}} <br/>
+        <!-- v-model:双向数据绑定 -->
+        <input type="text" v-model="msg">
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app', //指定被vue管理的入口，值为选择器，不可以是html或body
+            data:{      //用于初始化数据，在vue实例管理的dom节点下可以通过模板请求来引用这个数据
+                msg:'vue.js'
+            }
+        })
+    </script>
+</body>
+</html>
