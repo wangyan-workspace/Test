@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表渲染</title>
+</head>
+<body>
+    <div id="app">
+        <h3>1.迭代数组</h3>
+        <ul>
+            <!-- 
+            e代表emps数组中的每个元素，index代表数组下标
+            注意:使用'key'特殊属性
+            它会基于key的编号重新排列元素顺序，并且会移除key不存在的元素
+            可以使用in或者of作为分隔符
+         -->
+        <li v-for="e in emps">
+            姓名:{{e.name}}-------工资:{{e.salary}}
+        </li>
+        <br>
+        <li v-for="(e,index) of emps" v-bind:key='index'>
+            编号:{{index}},姓名:{{e.name}}-------工资:{{e.salary}}
+        </li>
+        </ul>
+
+        <h3>2.迭代对象</h3>
+        <ul>
+            <li v-for="(value,key,index) in person">
+                第{{index}}个属性:{{key}} = {{value}}
+            </li>
+        </ul>
+
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                emps:[
+                    {
+                        name:'艾静',
+                        salary:99999
+                    },
+                    {
+                        name:'佳佳',
+                        salary:88888
+                    },
+                    {
+                        name:'武藤清',
+                        salary:77777
+                    },
+                    {
+                        name:'吴俊勇',
+                        salary:666666
+                    },
+                    {
+                        name:'侯福川',
+                        salary:55555
+                    },
+                ],
+                person:{
+                    name:'小明',
+                    age:18
+                }
+            }
+        })
+    </script>
+</body>
+</html>
