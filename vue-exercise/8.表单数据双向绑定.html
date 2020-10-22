@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单数据双向绑定</title>
+</head>
+<body>
+    <div id="app">
+        <!-- @submit.prevent:阻止表单提交的默认行为 -->
+        <form action="#" @submit.prevent="submitForm">
+            <!-- Vue数据层保存的是value值 -->
+            <!-- v-model 双向数据绑定 -->
+            姓名（文本）: <input type="text" v-model="name">
+            <br>
+            <!-- v-model 所绑定的值与value的值相同即为被选中 -->
+            性别（单选按钮）:
+            <input type="radio" name="sex" value="1" v-model="sex">男
+            <input type="radio" name="sex" value="0" v-model="sex">女
+            <br>
+
+            技能（多选框）:
+            <input type="checkbox" name="skills" value="java" v-model="skills">Java开发
+            <input type="checkbox" name="skills" value="vue" v-model="skills">Vue.js开发
+            <input type="checkbox" name="skills" value="pytgon" v-model="skills">Python开发
+            <br>
+
+            城市（下拉框）:
+            <select name="citys" v-model="city">
+                <option :value="c.code" v-for="c in citys">{{c.name}}</option>
+            </select>
+            <br>
+
+            说明（多行文本）:
+            <textarea cols="30" rows="10" v-model="content"></textarea>
+            <br>
+            <button type="submit">提交</button>
+        </form>
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                name:'',
+                sex:0,
+                skills:["vue"],
+                citys:[
+                    {code:'bj',name:'北京'},
+                    {code:'sh',name:'上海'},
+                    {code:'hrb',name:'哈尔滨'},
+                ],
+                city:'hrb',
+                content:''
+            },
+            methods:{
+                submitForm:function(){
+                    alert(`${this.name},${this.sex},${this.skills},${this.city},${this.content}`)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
