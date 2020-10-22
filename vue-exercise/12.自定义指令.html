@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令</title>
+</head>
+<body>
+    <div id="app">
+        <p v-upper-text="message">xxxxxxx</p>
+        自动获取焦点: <input type="text" v-focus>
+    </div>
+
+    <div id="app2">
+        <p v-upper-text="message">xxxxxx</p>
+        <!-- v-focus 是一个局部自定义指令，在#app2中不生效 -->
+        自动获取焦点: <input type="text" v-focus>
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 全局注册指令
+        // 第一个参数为指令名，但是不要v-开头
+        Vue.directive("upper-text",{
+            // 一般对样式的操作放到bind钩子函数中，只调用一次
+            bind:function(el){
+                el.style.color="red";
+            },
+            // 一般对js操作会在inserted这个钩子函数中处理，只调用一次
+            // el 代表当前指令作用的Dom元素
+            // binding 用于获取使用了当前指令的绑定值（value），表达式（expression），指令（name）等等
+            inserted:function(el,binding){
+                console.log(binding); //{name: "upper-text", rawName: "v-upper-text", value: "wangguangfu,电脑坏了", expression: "message", modifiers: {…}, …}
+                el.innerHTML = binding.value.toUpperCase();  //WANGGUANGFU,电脑坏了
+                el.innerHTML = binding.name.toUpperCase();   //UPPER-TEXT
+                el.innerHTML = binding.expression.toUpperCase();  //MESSAGE
+            }
+        })
+        new Vue({
+            el:'#app',
+            data:{
+                message:"wangguangfu,电脑坏了"
+            },
+            // 注册局部的自定义指令
+            directives:{
+                "focus":{//指令名
+                    inserted:function(el,binding){//要执行的功能
+                        el.focus();
+                    }
+                }
+            }
+        })
+        new Vue({
+            el:"#app2",
+            data:{
+                message:'wangugui,电脑坏了'
+            }
+        })
+    </script>
+</body>
+</html>

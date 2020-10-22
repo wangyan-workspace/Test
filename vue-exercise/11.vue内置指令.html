@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue内置指令</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- 
+            v-pre
+            1.用于显示双大括号{{}}
+            2.跳过这个元素和它的子元素的Vue编程过程，可以调高性能
+         -->
+         <span v-pre>
+             {{测试文本}}
+         </span>
+         <h3>{{msg}}</h3>
+         <h3>{{msg}}</h3>
+         <h3>{{msg}}</h3>
+
+         <h3 v-text="msg"></h3>
+         <h3 v-text="msg"></h3>
+         <h3 v-text="msg"></h3>
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                msg:"测试数据"
+            }
+        })
+    </script>
+</body>
+</html>
