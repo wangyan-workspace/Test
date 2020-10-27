@@ -23,7 +23,7 @@
 			<template v-if="items.length">
 				<!-- <div  v-show="items.length"> -->
 					<section class="main">
-						<input id="toggle-all" class="toggle-all" type="checkbox">
+						<input v-model="toggleAll" id="toggle-all" class="toggle-all" type="checkbox">
 						<label for="toggle-all">Mark all as complete</label>
 						<ul class="todo-list">
 							<!-- These are here just to show the structure of the list items -->
@@ -32,7 +32,7 @@
 								<div class="view">
 									<input class="toggle" type="checkbox" v-model="item.completed">
 									<label>{{item.content}}</label>
-									<button class="destroy"></button>
+									<button class="destroy" :value="item.id" @click="removeItem(index)"></button>
 								</div>
 								<input class="edit" value="Create a TodoMVC template">
 							</li>

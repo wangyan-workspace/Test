@@ -33,6 +33,25 @@
 					return !item.completed;
 				})
 				return unItem.length;
+			},
+			// 切换所有状态，控制全选按钮是否勾选
+			toggleAll:{
+				// 当任务列表中的状态发生更改之后（小按钮），就更新全选按钮的状态
+				get(){
+					// console.log("get",this.remaining);
+					return this.remaining === 0;
+				},
+				// 当全选按钮状态发生更改之后，就将任务列表的状态更新
+				set(newState){
+					// console.log("set",newState);
+					/*ES6之前的写法
+					this.items.foreach(function(item){
+						
+					}) */
+					this.items.forEach((item)=>{
+						item.completed = newState;
+					})
+				}
 			}
 		},
 		methods:{
@@ -62,6 +81,11 @@
 				})
 				// 4.清空输入框里的内容
 				event.target.value = "";
+			},
+			// 删除按钮
+			removeItem(index){
+				// splice方法：从数组中删除元素，两个参数：（第一个参数：从哪个元素开始删，第二个参数：删除几个）
+				this.items.splice(index,1)
 			}
 		}
 	})
