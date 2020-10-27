@@ -15,11 +15,24 @@
 			content:"JS",//输入的内容
 			completed:true//是否完成
 		},
-	]
-	new Vue({
+	];
+	// 注册全局自定义指令
+	Vue.directive('app-focus',{
+		inserted(el,binding){
+			el.focus();
+		},
+		update(el,binding){
+			if(binding.value){
+				el.focus();
+			}
+		}
+	})
+	let vm=new Vue({
 		el:'#todoapp',
 		data:{
-			items //ES6语法 相当于items:items,如果在对象中，key的名字和value的名字一样的话，就可以简写成一个
+			items, //ES6语法 相当于items:items,如果在对象中，key的名字和value的名字一样的话，就可以简写成一个
+			currentItem:null,  //记录要编辑的任务项
+			filterStatus:"all" //用于接收路由变化状态值
 		},
 		// 定义计算属性
 		computed:{
@@ -42,15 +55,29 @@
 					return this.remaining === 0;
 				},
 				// 当全选按钮状态发生更改之后，就将任务列表的状态更新
-				set(newState){
-					// console.log("set",newState);
+				set(newStatus){
+					// console.log("set",newStatus);
 					/*ES6之前的写法
 					this.items.foreach(function(item){
 						
 					}) */
 					this.items.forEach((item)=>{
-						item.completed = newState;
+						item.completed = newStatus;
 					})
+				}
+			},
+			// 根据下面的all，active，completed三个按钮不同点击状态过滤显示不同的列表
+			filterItem(){
+				switch (this.filterStatus) {
+					case "active":
+						return this.items.filter(item => !item.completed)
+						break;
+					case "completed":
+						return this.items.filter(item => item.completed)
+						break;
+					default:
+						return this.items;
+						break;
 				}
 			}
 		},
@@ -82,11 +109,52 @@
 				// 4.清空输入框里的内容
 				event.target.value = "";
 			},
-			// 删除按钮
+			// 删除任务项
 			removeItem(index){
 				// splice方法：从数组中删除元素，两个参数：（第一个参数：从哪个元素开始删，第二个参数：删除几个）
 				this.items.splice(index,1)
+			},
+			// 删除所有已完成任务项
+			removeCompleted(){
+				/* this.items = this.items.filter(function(item){
+					return !item.completed
+				}) */
+				// 进一步简写
+				/* this.items = this.items.filter((item) => {
+					return !item.completed
+				}) */
+				// 还可以简写
+				// 将过滤出来的所有未完成的任务项数组重新赋值给整体的数据列表数组（这样数组中就剩下所有未完成的数据项了）
+				this.items = this.items.filter((item) => !item.completed)
+
+			},
+			// 进入编辑状态
+			toEdit(item){
+				this.currentItem = item;
+			},
+			// 取消编辑
+			cancelEdit(){
+				this.currentItem=null;
+			},
+			// 完成编辑保存输入
+			finishEdit(item,index,event){
+				// 1.获取当前输入框输入的内容
+				const content = event.target.value.trim();
+				// 2.判断输入框里的值是否为空，如果为空，进行删除任务项
+				if(!content){
+					this.removeItem(index);
+					return;
+				}
+				// 3.如果不为空，则添加到原有任务项中，其实就是一个更新的操作
+				item.content = content;
+				// 4.移除.editing样式，退出编译模式
+				this.currentItem = "";
 			}
 		}
 	})
+	window.onhashchange = function(){
+		console.log(window.location.hash);
+		vm.filterStatus = window.location.hash.substr(2) || "all";
+	}
+	window.onhashchange();
 })(Vue);
