@@ -1,4 +1,19 @@
 (function (Vue) {
+	// 本地存储数据时用到的key
+	const STORAGE_KEY = "items-vue";
+	// 进行本地存储数据或获取数据
+	const itemStorage={
+		// 获取数据
+		fetch(){
+			// JSON.parse():将JSON形式的字符串转化成数组或对象
+			return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")
+		},
+		// 保存数据
+		save(items){
+			// 将获取到的数组转化成JSON形式的字符串
+			localStorage.setItem(STORAGE_KEY,JSON.stringify(items))
+		}
+	}
 	const items=[
 		{
 			id:1, //主键
@@ -30,9 +45,24 @@
 	let vm=new Vue({
 		el:'#todoapp',
 		data:{
-			items, //ES6语法 相当于items:items,如果在对象中，key的名字和value的名字一样的话，就可以简写成一个
+			//items, //ES6语法 相当于items:items,如果在对象中，key的名字和value的名字一样的话，就可以简写成一个
+			items:itemStorage.fetch(),//从本地数据库中获取数据
 			currentItem:null,  //记录要编辑的任务项
 			filterStatus:"all" //用于接收路由变化状态值
+		},
+		// 定义监听器
+		watch:{
+			// items:function(newValue,oldValue){
+			// 	console.log('watch',newValue)
+			// }
+
+			// 为了发现对象内部值的变化，可以在选项参数中指定 deep: true。注意监听数组的变更不需要这么做。
+			items:{
+				deep:true,//深度监听对象中属性的变化
+				handler:function(newItems,oldItems){
+				itemStorage.save(newItems);
+			}
+			}
 		},
 		// 定义计算属性
 		computed:{
