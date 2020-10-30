@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 1.普通的HTML方式实现 -->
+        <!-- <div class="header"><h1>头部组件</h1></div>
+        <div class="main">
+            <ul>
+                <li>客户管理</li>
+                <li>账单管理</li>
+                <li>供应商管理</li>
+            </ul>
+        </div>
+        <div class="footer"><h1>底部组件</h1></div>
+
+        <br> -->
+        <!-- 2.全局注册组件实现 -->
+        <app-header></app-header>
+        <app-main></app-main>
+        <app-footer></app-footer> 
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+
+    <!-- 3.引入自定义组件实现 -->
+    <script src="./component/header.js"></script>
+    <script src="./component/main.js"></script>
+    <script src="./component/footer.js"></script>
+
+    <script>
+        // 2.全局注册组件
+        /* Vue.component('app-header',{
+            template:'<div class="header"><h1>头部组件</h1></div>'
+        })
+        Vue.component('app-main',{
+            template:`
+            <div class="main">
+                <ul>
+                    <li>客户管理</li>
+                    <li>账单管理</li>
+                    <li>供应商管理</li>
+                </ul>
+            </div>
+            `
+        })
+        Vue.component('app-footer',{
+            template:'<div class="footer"><h1>底部组件</h1></div>'
+        }) */
+        new Vue({
+            el:"#app"
+        })
+    </script>
+</body>
+</html>

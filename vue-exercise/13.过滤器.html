@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h3>测试过滤器单个参数</h3>
+        <!-- 原始属性名称 | 过滤器名称 -->
+        <p>{{ content | contentFilter }}</p>
+        <input type="text" :value="content | contentFilter">
+        <h3>测试过滤器多个参数</h3>
+        <!-- 在使用多个参数的过滤器时，需要向过滤器中传入多个参数，这时 | 前面的为第一个参数，之后的剩余参数则可以放入过滤器名称的小括号中 -->
+        <p>{{x | add(y,z)}}</p>
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 全局过滤器
+        Vue.filter('contentFilter',value => {
+            if(!value) {
+                return "";
+            }
+            return value.toString().toUpperCase().replace('TMD',"***").replace("SB","***")
+        })
+        new Vue({
+            el:"#app",
+            data:{
+                content:"亚瑟，你TMD就是一个sb",
+                x:70,
+                y:80,
+                z:90
+            },
+            filters:{
+                add(num1,num2,num3) {
+                    return num1+num2+num3;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
