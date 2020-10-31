@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="style/dashboard.css" rel="stylesheet">	
+  </head>
+
+  <body>
+    <div id="app">
+    <!--头部导航区域-->
+      <app-navbar></app-navbar>
+    
+    <!--核心区域:分左右两边-->
+      <div class="container-fluid">
+        <div class="row">
+      
+      <!--左边菜单栏区域-->
+          <app-left></app-left>
+        
+      <!--右边主页面区域: 分上下两个区域-->
+          <app-home></app-home>
+        </div>
+      </div>
+  </div>
+  <!-- 相对路径，从其他文件中把vue.js引入 -->
+  <script src="../vue-exercise/node_modules/vue/dist/vue.js"></script>
+  <script src="./components/AppNavBar.js"></script>
+  <script src="./components/AppLeft.js"></script>
+  <script src="./components/home/AppHome.js"></script>
+  <script>
+    
+    new Vue({
+      el:'#app',
+      components:{
+        'app-navbar':appVavBar,
+        appLeft,
+        appHome
+      }
+    })
+  </script>
+  </body>
+</html>
