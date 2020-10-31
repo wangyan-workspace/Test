@@ -7,6 +7,7 @@
 </head>
 <body>
     <div id="app">
+        <!-- Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化。过滤器可以用在两个地方：双花括号插值和 v-bind 表达式  -->
         <h3>测试过滤器单个参数</h3>
         <!-- 原始属性名称 | 过滤器名称 -->
         <p>{{ content | contentFilter }}</p>
@@ -17,7 +18,7 @@
     </div>
     <script src="./node_modules/vue/dist/vue.js"></script>
     <script>
-        // 全局过滤器
+        // 全局过滤器(第一个参数：过滤器的名字，第二个参数：回调函数)
         Vue.filter('contentFilter',value => {
             if(!value) {
                 return "";
