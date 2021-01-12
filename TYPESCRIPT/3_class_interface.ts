@@ -51,6 +51,7 @@ let p1 = new Person('lisi');
 // p1.gender = '男';
 // console.log(p1.gender);
 
+// 静态的属性和方法一般用于工具类的相关操作
 // console.log(Person.legs); //对于静态数据不用重新 new一个对象实例，可以直接通过类名访问到
 
 // 抽象类和继承
@@ -82,7 +83,15 @@ let cat = new Cat('咪咪');
 
 // let animal = new Animal(); //抽象类不能被实例化
 
-// 接口（接口本身是抽象的,接口中的所有的方法也都是抽象的）
+/* 
+    抽象类用于继承：优势：使子类中的代码简化，不用重复写同样功能和属性的代码
+                 劣势： 1.只能单继承，例如，A类继承了B类 ，A类就不能继承C类
+                       2.耦合性太强，修改父类中的属性或方法，会对子类造成不同程度的影响  
+    抽象类和接口很像，继承类用关键字extends,实现接口用关键字implements,能用接口的地方尽量用接口，，少用抽象类作继承
+*/ 
+
+// 接口:接口就是用来约束和制定标准的
+//（接口本身是抽象的,接口中的所有的方法也都是抽象的）
 // 如果实现一个接口，就要实现接口里的全部方法
 interface IFly{
     fly():string;
@@ -121,9 +130,36 @@ class MachineCat extends Cat implements IFly{
 // let flier :IFly = new MachineCat('哆啦A梦');
 // console.log(flier.fly());
 
-function fly(flier: IFly){
-    console.log(flier.fly());
+// function fly(flier: IFly){
+//     console.log(flier.fly());
+// }
+
+// fly(new MonkeyKing('悟空'));
+// fly(new MachineCat('哆啦A梦'));
+
+// 属性类型接口
+interface IPerson{
+    name: string;
+    age: number;
 }
 
-fly(new MonkeyKing('悟空'));
-// fly(new MachineCat('哆啦A梦'));
+function checkPersonInfo(person: IPerson){
+    console.log(person.name,person.age);
+}
+
+// checkPersonInfo({name: 'lisi',age: 23}); //没有任何问题
+// checkPersonInfo({name: 'lisi',age: 23,gender: '男'}); //会检测出多了一个gender属性
+// checkPersonInfo({name: 'lisi'});  //检测出缺少age属性
+// let obj = {name: 'lisi',age: 23,gender: 'male'};  //此处将不再提示多了一个gender属性，目前仍是一个bug
+// checkPersonInfo(obj);
+
+// 函数类型接口
+// interface IMath{
+//     (a: number,b: number): number;
+// }
+// let add: IMath = function(x: number,y: number){
+//     return x+y;
+// }
+// console.log(add(3,3));
+
+

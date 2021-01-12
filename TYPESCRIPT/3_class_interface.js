@@ -42,6 +42,7 @@ let p1 = new Person('lisi');
 // console.log(p1.getGender('I love you'));
 // p1.gender = '男';
 // console.log(p1.gender);
+// 静态的属性和方法一般用于工具类的相关操作
 // console.log(Person.legs); //对于静态数据不用重新 new一个对象实例，可以直接通过类名访问到
 // 抽象类和继承
 // 设计抽象的父类，一定是用来做继承的
@@ -78,19 +79,19 @@ class MachineCat extends Cat {
         return '我可以在头上插个小风扇飞！';
     }
 }
-// let wukong = new MonkeyKing('悟空');
-// console.log(wukong.shout());
-// console.log(wukong.fly());
-// let doraamon = new MachineCat('哆啦A梦');
-// console.log(doraamon.shout());
-// console.log(doraamon.fly());
-// **多态：在统一标准下的多种形态**
-// let flier :IFly = new MonkeyKing('悟空');
-// console.log(flier.fly());
-// let flier :IFly = new MachineCat('哆啦A梦');
-// console.log(flier.fly());
-function fly(flier) {
-    console.log(flier.fly());
+function checkPersonInfo(person) {
+    console.log(person.name, person.age);
 }
-fly(new MonkeyKing('悟空'));
-// fly(new MachineCat('哆啦A梦'));
+// checkPersonInfo({name: 'lisi',age: 23}); //没有任何问题
+// checkPersonInfo({name: 'lisi',age: 23,gender: '男'}); //会检测出多了一个gender属性
+// checkPersonInfo({name: 'lisi'});  //检测出缺少age属性
+// let obj = {name: 'lisi',age: 23,gender: 'male'};  //此处将不再提示多了一个gender属性，目前仍是一个bug
+// checkPersonInfo(obj);
+// 函数类型接口
+// interface IMath{
+//     (a: number,b: number): number;
+// }
+// let add: IMath = function(x: number,y: number){
+//     return x+y;
+// }
+// console.log(add(3,3));
