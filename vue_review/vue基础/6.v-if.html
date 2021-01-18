@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="change">切换</button>
+        <div v-if="flag">||ヽ(*￣▽￣*)ノミ|Ю😋🌶</div>
+        <div v-if="sex == 0">女</div>
+        <div v-else>男</div>
+        <div v-show="flag">6666</div>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                flag: true,
+                sex: 0
+            },
+            methods:{
+                change(){
+                    this.flag = !this.flag;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

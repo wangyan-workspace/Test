@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-on:事件类型="事件函数" [事件源，事件处理函数，事件对象] -->
+        <!-- <button v-on:click="add('hahaha',$event)">添加</button> -->
+        <button @click="add('hahaha')">添加</button>
+        <ul>
+            <!-- 参数的名字可以自定义，顺序不能变 -->
+            <li v-for="(student,index) in students">
+                序号：{{index + 1}} 姓名：{{student.name}} 年龄：{{student.age}}
+            </li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                students:[
+                    {
+                        name: 'lisi',
+                        age: 23
+                    },
+                    {
+                        name: 'wangwu',
+                        age: 18
+                    },
+                    {
+                        name: 'zhaoliu',
+                        age: 67
+                    }
+                ]
+            },
+            methods:{
+                add(str){
+                    // this 指的是实例化的vue对象(vm)
+                    // console.log(this.students);
+                    this.students.push({
+                        name: 'linhaiyang',
+                        age: 21
+                    })
+                    console.log(str);
+                    console.log(event);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
