@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" @keyup="search">
+        <button @click="add">添加</button>
+        <ul>
+            <li v-for="(item,index) in showList" :class="{active: item.isActive}" @click="change(item)">
+                <span>{{item.content}}</span>
+                <!-- 阻止事件冒泡 -->
+                <button @click.stop="del(index)">删除</button>
+            </li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                msg: '',
+                List:[
+                    {
+                        content:'111',
+                        isActive: false
+                    },
+                    {
+                        content:'222',
+                        isActive: false
+                    },
+                    {
+                        content:'333',
+                        isActive: false
+                    }
+                ],
+                showList:[
+                    {
+                        content:'111',
+                        isActive: false
+                    },
+                    {
+                        content:'222',
+                        isActive: false
+                    },
+                    {
+                        content:'333',
+                        isActive: false
+                    }
+                ]
+            },
+            methods:{
+                add(){
+                    // 获取输入框里的值，添加到数组中
+                    this.List.push(
+                        {
+                            content: this.msg,
+                            isActive: false
+                        }
+                    );
+                    // 将输入框里的值，清空，方便下次操作
+                    this.msg=''
+                    this.showList = [...this.List]
+                },
+                change(obj){
+                    obj.isActive = !obj.isActive
+                },
+                del(index){
+                    // splice删除数组中的元素，第一个参数：数组的索引，第二参数：删除的个数
+                    this.List.splice(index,1);
+                    this.showList = [...this.List]
+                },
+                search(){
+                    // console.log(this.msg);
+                    this.showList = this.List.filter(function(obj){
+                        // console.log(item.content);
+                        return obj.content.includes(vm.msg);
+                    })
+                }
+            }
+
+        })
+
+       
+    </script>
+</body>
+</html>
