@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="add1">加加加</button>
+        {{count}}
+        <!-- 组件的应用 -->
+        <!-- 在父组件中定义一个属性，属性值为一个方法，可方便子组件调用 -->
+        <!-- <my-component :message="msg" :fn1="add1"></my-component> -->
+        <!-- 在父组件中定义一个绑定事件，绑定一个要执行的方法，可方便子组件调用 -->
+        <my-component :message="msg" @son="add1"></my-component>
+    </div>
+
+    <template id="tpl">
+        <div>
+            <h3>{{message}}</h3>
+            {{news}}
+            <button @click="add2">+++++++</button>
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg:'爸爸说的话：好孩子当自强',
+                count: 0
+            },
+            methods: {
+                add1(){
+                    this.count++;
+                }
+            },
+            components: {
+                'myComponent': {
+                    template: '#tpl',
+                    //接收父组件的属性和方法
+                    props: ['message','fn1'],
+                    data() {
+                        return {
+                            news: '儿子说的话：爸爸说的对'
+                        }
+                    },
+                    methods: {
+                        add2(){
+                            // 可以实现父组件的功能，但强烈不推荐，不要这么使用
+                            // vm.count++
+
+                            // 方案一：
+                            //通过调用父组件的属性（名）[子组件属性名 = 父组件方法名]，在子组件实现父组件的功能
+                            // this.fn1();
+
+                            // 方法二：
+                            // 通过调用父组件的绑定事件，在子组件实现父组件的功能
+                            console.log(this);
+                            // $emit获取子组件从父组件传过来的绑定的事件
+                            this.$emit('son');
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
