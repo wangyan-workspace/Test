@@ -41,8 +41,12 @@
                 <span>{{item.price}}</span>
             </li>
         </ul>
+        <!-- 普通属性 -->
         <!-- <p>总价：{{total}}</p> -->
+        <!-- 方法调用 -->
         <p>总价：{{sum()}}</p>
+        <!-- 计算属性 -->
+        <p>总价： {{total}}</p>
     </div>
     <script src="../vue.js"></script>
     <script>
@@ -79,6 +83,19 @@
                     this.sum();
                 },
                 sum(){
+                    var count = 0;
+                    this.list.forEach((item) => {
+                        if(item.isActive == true){
+                            // console.log(item.price);
+                            count += item.price;
+                        }
+                    });
+                    // this.total = count;
+                    return count;
+                }
+            },
+            computed: {
+                total(){
                     var count = 0;
                     this.list.forEach((item) => {
                         if(item.isActive == true){
