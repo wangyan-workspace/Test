@@ -1,9 +1,24 @@
 <template>
   <div id="app">
+      <!-- <router-view/> -->
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/course">Course</router-link> |
+      <!-- 
+        路由传参：
+        1.path + query：刷新页面的时候参数【不会】丢失，地址栏【能】看到参数
+        2.name + params: 刷新页面的时候参数【会】丢失，地址栏【不能】看到参数
+        3.url  + params：刷新页面的时候参数【不会】丢失，地址栏【能】看到参数
+       -->
+      <!-- <router-link :to="{path:'/user', query:{name:'lisi',id:1001 } }">用户详情</router-link> | -->
+      <router-link :to="{name:'User', params:{name:'lisi',id:1001 } }">用户详情</router-link> |
+      <router-link to="/details/201/16900">课程详情</router-link> |
+      <router-link to="/test">测试路径</router-link> | 
+      <!-- <router-link to="/test/202/11900">测试路径</router-link> -->
+      <router-link to="/count">vuex</router-link>
     </div>
+    <!-- 插槽：决定页面渲染到哪个位置 -->
     <router-view/>
   </div>
 </template>
