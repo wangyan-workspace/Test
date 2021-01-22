@@ -1,0 +1,10 @@
+Node.js常见的Web框架：
+1.express: 第一个Node.js的Web框架，也是目前使用者最多的，比较重量级
+2.KOA：和express一个团队开发的，更轻量级，只提供了最基本的Web运行时框架内容，需要手动继承第三方包
+3.egg.js：阿里的框架，基于KOA
+
+
+安装koa
+0.先创建一个文件夹
+1.npm init -y (先初始化一个包)
+2.npm install koa
