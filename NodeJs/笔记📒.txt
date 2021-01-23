@@ -8,3 +8,12 @@ Node.js常见的Web框架：
 0.先创建一个文件夹
 1.npm init -y (先初始化一个包)
 2.npm install koa
+
+request请求：
+    1.get 客户端向服务器发送请求
+        1.1浏览器地址栏直接输入地址
+        1.2点击超链接
+    2.post 客户端向服务器提交数据
+        2.1提交form表单
+
+路由：route,SPA(Single Page Application)应用
