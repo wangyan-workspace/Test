@@ -29,7 +29,7 @@ router.get('/',async (ctx) => {
   // 定义需要传递的常量值
   let title = 'hello koa2';
   let message = 'Mr Lin,I love you❤️'
-  // render：具体渲染哪个页面
+  // render：具体渲染哪个页面(扩展名为ejs的文件，后缀名可省略)
   // 第二个参数，是向具体的页面传递一些信息
   await ctx.render('index', {
     title,
