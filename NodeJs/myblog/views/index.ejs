@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 每个页面都有导航条，通过这个方式将封装好的导航条引入 -->
+        <%- include('header') %>
+
+        <div class="blog-list">
+            <% 
+               for(let i=0; i<blogs.length; i++)
+               { 
+                   let blog = blogs[i]
+            %>
+                <div class="blog">
+                    <h3 class="blog-title"><%=blog.title%></h3>
+                    <p class="blog-content"><%=blog.content%></p>
+                    <span class="post-time"><%=blog.post_time%></span>
+                </div>
+            <% 
+                } 
+            %>
+        </div>
+
+    </div>
+</body>
+
+</html>

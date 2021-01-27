@@ -1,0 +1,14 @@
+.blog-list {
+    width: 815px;
+    margin: 20px auto;
+    background: rgb(233, 123, 123);
+}
+.blog {
+    background: #ccc;
+    padding: 20px;
+    opacity: 0.75;
+    margin: 20px 0;
+}
+.blog-title,.blog-content,.post-time{
+    margin: 20px 0;
+}
