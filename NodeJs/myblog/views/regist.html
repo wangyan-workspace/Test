@@ -11,7 +11,6 @@
 
 <body>
     <div class="container">
-        <%- include('header') %>
 
             <div class="regist-form">
                 <form action="/regist" method="post">
@@ -37,6 +36,7 @@
         let spanInfo = document.getElementById('info')
         iptUsername.onblur = function () {
             axios.get('/checkUser',{
+                // 向路由/checkUser传递的参数（在路由后面的键值对）
                 params: {
                     // this.value：获得输入框里的值
                     username: this.value

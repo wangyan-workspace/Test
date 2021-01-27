@@ -1,11 +1,11 @@
-<!-- 将导航条抽取出来 -->
+<!-- 因为每个页面都有，所以将导航条抽取出来 -->
 <header>
     <div class="title">MyBlog</div>
     <div class="login-box">
         <%
-            if(user){
+            if(locals.user){
         %>
-                <%=user%>
+                <%=locals.user%>
         <%        
             } else {
         %>

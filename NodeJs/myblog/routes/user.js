@@ -21,7 +21,7 @@ router.post('/login', controller.login
 
 router.get('/regist', async ctx => {
     let loginUser = ctx.session.loginUser;
-    await ctx.render('regist',{
+    await ctx.render('regist.html',{
         user: loginUser
     });
 })

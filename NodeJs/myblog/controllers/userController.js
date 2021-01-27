@@ -40,6 +40,7 @@ module.exports = {
     },
     async regist(ctx) {
         //1.接收表单数据
+        // ctx.request.body获取用户注册信息
         // 将获取的数据解构出来
         let { username, password, nickname } = ctx.request.body;
         // 2.安全验证
@@ -65,6 +66,18 @@ module.exports = {
             let results = await model.saveUser({ username, password, nickname })
 
             // console.log(results);
+            /*
+                OkPacket {
+                    fieldCount: 0,
+                    affectedRows: 1,
+                    insertId: 59,
+                    serverStatus: 2,
+                    warningCount: 0,
+                    message: '',
+                    protocol41: true,
+                    changedRows: 0
+                }
+            */
             // 4.根据查询的结果跳转(或输出)不同的结果页面
             if (results.insertId) {
                 // 通过判断insertId是不是有正常值，如果有，说明插入成功
@@ -77,10 +90,23 @@ module.exports = {
         }
     },
     async checkUser(ctx) {
-        let {username} = ctx.query;
+        // ctx.query：获取传递给路由/checkUser的参数
+        // 将username解构出来
+        let { username } = ctx.query;
         let results = await model.getUserByUsername(username);
         // console.log(results);
-        if(results.length > 0){
+        /*
+            [
+                RowDataPacket {
+                    user_id: 5,
+                    username: 'lisi',
+                    nickname: '李四',
+                    password: '123456',
+                    create_date: 2020-10-23T12:23:59.000Z
+                }
+            ]
+        */ 
+        if (results.length > 0) {
             ctx.body = 'fail';
         } else {
             ctx.body = 'success';

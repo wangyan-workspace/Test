@@ -11,4 +11,6 @@ router.get('/', controller.welcome
     // }
 );
 
+router.get("/blog/detail/:blogId", controller.getBlogDetail);
+
 module.exports = router;
