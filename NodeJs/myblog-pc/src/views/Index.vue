@@ -1,45 +1,72 @@
 <template>
-    <div class="container">
-        <div class="blog-list">
-            <div class="blog">
-                <h3 class="blog-title">
-                    <a href="/blog/detail/">22</a>
-                </h3>
-                <p class="blog-content">33</p>
-                <span class="post-time">44</span>
-            </div>
-            
-            
-        </div>
+  <div class="container">
+    <div class="blog-list">
+      <div class="blog" v-for="item in blogList" :key="item.blogId">
+        <h3 class="blog-title">
+          <!-- <a href="/blog/detail/">{{ item.title }}</a> -->
+          <router-link :to="{ path: '/blog/detail/' + item.blogId }">{{
+            item.title
+          }}</router-link>
+        </h3>
+        <p class="blog-content">{{ item.content }}</p>
+        <span class="post-time">{{ item.postTime }}</span>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            
-        }
-    },
-    methods: {
-        
+  data() {
+    return {
+      blogList: []
     }
+  },
+  created() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      this.axios({
+        url: 'http://localhost:3000/blog/list',
+        headers: {
+          // 取出token值
+          Authorization: localStorage.getItem('mytoken')
+        }
+      })
+        .then((res) => {
+          let { state } = res.data
+          if (state === 'auth-fail') {
+            alert('请求未授权-then!')
+          } else if (state === 'success') {
+            let { blogs } = res.data
+            this.blogList = blogs
+          }
+        })
+        .catch((err) => {
+        //   alert('请求未授权-catch!', err)
+          this.$router.push('/login')
+        })
+    }
+  }
 }
 </script>
 
 <style scoped>
-    .blog-list {
-    width: 815px;
-    margin: 20px auto;
-    background: rgb(233, 123, 123);
+.blog-list {
+  width: 815px;
+  margin: 20px auto;
+  background: rgb(233, 123, 123);
 }
 .blog {
-    background: #ccc;
-    padding: 20px;
-    opacity: 0.75;
-    margin: 20px 0;
+  background: #ccc;
+  padding: 20px;
+  opacity: 0.75;
+  margin: 20px 0;
 }
-.blog-title,.blog-content,.post-time{
-    margin: 20px 0;
+.blog-title,
+.blog-content,
+.post-time {
+  margin: 20px 0;
 }
 </style>

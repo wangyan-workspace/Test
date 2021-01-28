@@ -27,7 +27,20 @@ export default {
           password: this.password
         })
         .then((res) => {
-          console.log(res)
+          console.log(res.data) // {status: "success", token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…Dg3fQ.2WXY2QJY3POqrgq12py9BARS9CmVaZ0hr3jbr30ECcg"}
+          let { state, token } = res.data
+          if (state === 'success') {
+            // console.log('登陆成功')
+            // 登陆成功,跳转到路由
+            // 存储token
+            // 调用vuex里的store里的方法
+            this.$store.dispatch('setToken', token)
+            // 跳转到首页的路由
+            this.$router.push('/')
+          } else {
+            // 登录失败
+            alert('用户名或密码不正确！')
+          }
         })
     }
   }
