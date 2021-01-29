@@ -2,10 +2,10 @@
   <div class="container">
     <div class="blog">
       <div class="blog-title">
-        <h3>{{blog.title}}</h3>
-        <span>{{blog.post_time}}</span>
+        <h3>{{ blog.title }}</h3>
+        <span>{{ blog.post_time }}</span>
       </div>
-      <div class="blog-content">{{blog.content}}</div>
+      <div class="blog-content">{{ blog.content }}</div>
       <div class="comments">
         <h4>评论</h4>
 
@@ -36,14 +36,9 @@ export default {
   methods: {
     getBlogDetail() {
       let blogId = this.$route.params.blogId
-      this.axios({
-        url: 'http://localhost:3000/blog/detail',
+      this.$http.get('/blog/detail',{
         params: {
-          blogId: blogId
-        },
-        headers: {
-          // 取出token值
-          Authorization: localStorage.getItem('mytoken')
+          blogId: blogId,
         }
       })
         .then((res) => {
@@ -52,10 +47,10 @@ export default {
             this.blog = blog
           }
         })
-        .catch((err) => {
-          //   alert('请求未授权-catch!', err)
-          this.$router.push('/login')
-        })
+        // .catch((err) => {
+        //   //   alert('请求未授权-catch!', err)
+        //   this.$router.push('/login')
+        // })
     }
   }
 }

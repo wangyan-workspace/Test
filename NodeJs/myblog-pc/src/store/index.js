@@ -16,6 +16,10 @@ export default new Vuex.Store({
       // console.log(state.token)
       // 将token存储在localStorage中mytoken：是key值  token：是value值
       localStorage.setItem('mytoken', token)
+    },
+    removeToken: state => {
+      state.token = null;
+      localStorage.removeItem('mytoken');
     }
   },
   modules: {

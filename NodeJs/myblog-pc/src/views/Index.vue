@@ -27,13 +27,7 @@ export default {
   },
   methods: {
     getData() {
-      this.axios({
-        url: 'http://localhost:3000/blog/list',
-        headers: {
-          // 取出token值
-          Authorization: localStorage.getItem('mytoken')
-        }
-      })
+      this.$http.get('/blog/list')
         .then((res) => {
           let { state } = res.data
           if (state === 'auth-fail') {
@@ -43,11 +37,11 @@ export default {
             this.blogList = blogs
           }
         })
-        .catch((err) => {
-        //   alert('请求未授权-catch!', err)
-        // 跳转到登录页面
-          this.$router.push('/login')
-        })
+        // .catch((err) => {
+        // //   alert('请求未授权-catch!', err)
+        // // 跳转到登录页面
+        //   this.$router.push('/login')
+        // })
     }
   }
 }
