@@ -37,6 +37,19 @@ app.use(staticPath(
 app.keys = ['myblog_session_key$$'];
 app.use(session(app));
 
+app.use(async(ctx,next) => {
+    if(ctx.url == "/login" || ctx.url == "/regist") {
+        await next();
+    } else {
+        let loginUser = ctx.session.loginUser;
+        if(loginUser) {
+            await next();
+        } else {
+            ctx.redirect("/login");
+        }
+    }
+})
+
 app.use(user.routes()).use(user.allowedMethods());
 app.use(blog.routes()).use(blog.allowedMethods());
 
