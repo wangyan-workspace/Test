@@ -1,6 +1,8 @@
 const router = require('koa-router')()
 // jsonwebtoken 最流行的跨域认证解决方案
-let jwt = require('jsonwebtoken');
+// let jwt = require('jsonwebtoken');
+
+const {createToken} = require('../auth')
 
 router.prefix('/user')
 
@@ -18,7 +20,7 @@ router.post('/login', async (ctx, next) => {
       username,
     }
     // expiresIn: 120 ：设置过期时间，以秒为单位
-    var token = jwt.sign(payload, secretKey,{expiresIn: 120});
+    var token = createToken(payload)
     // console.log('token::',token);
     ctx.body = {
       state: 'success',

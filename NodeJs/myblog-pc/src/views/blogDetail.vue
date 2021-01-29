@@ -2,10 +2,10 @@
   <div class="container">
     <div class="blog">
       <div class="blog-title">
-        <h3></h3>
-        <span> </span>
+        <h3>{{blog.title}}</h3>
+        <span>{{blog.post_time}}</span>
       </div>
-      <div class="blog-content"></div>
+      <div class="blog-content">{{blog.content}}</div>
       <div class="comments">
         <h4>评论</h4>
 
@@ -24,39 +24,41 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      blog: ""
+    }
   },
   created() {
-    console.log(this.$route.params);
+    // 获取路由上传递的参数
+    // console.log(this.$route.params)
+    this.getBlogDetail()
   },
   methods: {
     getBlogDetail() {
+      let blogId = this.$route.params.blogId
       this.axios({
-        url: "http://localhost:3000/blog/detail",
-        data: {
-          blogId: "",
+        url: 'http://localhost:3000/blog/detail',
+        params: {
+          blogId: blogId
         },
         headers: {
           // 取出token值
-          Authorization: localStorage.getItem("mytoken"),
-        },
+          Authorization: localStorage.getItem('mytoken')
+        }
       })
         .then((res) => {
-          let { state } = res.data;
-          if (state === "auth-fail") {
-            alert("请求未授权-then!");
-          } else if (state === "success") {
-            let { blogs } = res.data;
-            this.blogList = blogs;
+          let { state, blog } = res.data
+          if (state === 'success') {
+            this.blog = blog
           }
         })
         .catch((err) => {
           //   alert('请求未授权-catch!', err)
-          this.$router.push("/login");
-        });
-    },
-  },
-};
+          this.$router.push('/login')
+        })
+    }
+  }
+}
 </script>
 
 <style scoped>

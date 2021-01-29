@@ -45,6 +45,7 @@ export default {
         })
         .catch((err) => {
         //   alert('请求未授权-catch!', err)
+        // 跳转到登录页面
           this.$router.push('/login')
         })
     }
