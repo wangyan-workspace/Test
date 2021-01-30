@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <button @click="goPostBlog">发表文章</button>
     <div class="blog-list">
       <div class="blog" v-for="item in blogList" :key="item.blogId">
         <h3 class="blog-title">
@@ -42,6 +43,9 @@ export default {
         // // 跳转到登录页面
         //   this.$router.push('/login')
         // })
+    },
+    goPostBlog(){
+      this.$router.push("/blog/post");
     }
   }
 }

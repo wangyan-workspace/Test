@@ -27,11 +27,13 @@ export default {
           password: this.password
         })
         .then((res) => {
-          console.log(res.data) // {status: "success", token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…Dg3fQ.2WXY2QJY3POqrgq12py9BARS9CmVaZ0hr3jbr30ECcg"}
-          let { state, token } = res.data
+          // console.log(res.data) // {status: "success", token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…Dg3fQ.2WXY2QJY3POqrgq12py9BARS9CmVaZ0hr3jbr30ECcg"}
+          let { state, token, user } = res.data
           if (state === 'success') {
             // console.log('登陆成功')
             // 登陆成功,跳转到路由
+            // 存登录用户信息
+            this.$store.commit('storeLoginUser', user)
             // 存储token
             // 调用vuex里的store里的方法
             this.$store.dispatch('setToken', token)

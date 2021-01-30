@@ -2,10 +2,10 @@
   <div class="container">
     <div class="blog">
       <div class="blog-title">
-        <h3>{{ blog.title }}</h3>
-        <span>{{ blog.post_time }}</span>
+        <h3>{{ blog && blog.title }}</h3>
+        <span>{{ blog && blog.post_time }}</span>
       </div>
-      <div class="blog-content">{{ blog.content }}</div>
+      <div class="blog-content">{{ blog && blog.content }}</div>
       <div class="comments">
         <h4>评论</h4>
 
@@ -25,7 +25,7 @@
 export default {
   data() {
     return {
-      blog: ""
+      blog: null
     }
   },
   created() {
@@ -36,21 +36,22 @@ export default {
   methods: {
     getBlogDetail() {
       let blogId = this.$route.params.blogId
-      this.$http.get('/blog/detail',{
-        params: {
-          blogId: blogId,
-        }
-      })
+      this.$http
+        .get('/blog/detail', {
+          params: {
+            blogId: blogId
+          }
+        })
         .then((res) => {
           let { state, blog } = res.data
           if (state === 'success') {
             this.blog = blog
           }
         })
-        // .catch((err) => {
-        //   //   alert('请求未授权-catch!', err)
-        //   this.$router.push('/login')
-        // })
+      // .catch((err) => {
+      //   //   alert('请求未授权-catch!', err)
+      //   this.$router.push('/login')
+      // })
     }
   }
 }

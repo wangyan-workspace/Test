@@ -5,10 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: ''
+    token: '',
+    loginUser: ""
   },
+  // 同步操作
   mutations: {
+    storeLoginUser(state,user){
+      state.loginUser = user
+    }
   },
+  // 异步操作
   actions: {
     setToken: (state, token) => {
       // 将token存储到状态管理器里

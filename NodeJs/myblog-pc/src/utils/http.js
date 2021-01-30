@@ -25,7 +25,7 @@ instance.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     // 对响应错误做点什么
-    let {status} = err.response;
+    let {status} = error.response;
     if(status == 401){
         store.dispatch('removeToken')
         location.href = "/login"
