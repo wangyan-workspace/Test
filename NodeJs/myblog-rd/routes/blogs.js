@@ -7,21 +7,21 @@ router.prefix('/blog')
 
 router.get("/list", verfiyToken,blogController.listBlog);
 
-router.get("/detail", verfiyToken,
-  async (ctx, next) => {
+router.get("/detail", verfiyToken,blogController.getBlogDetail);
+  // async (ctx, next) => {
 
-    let blog = {
-      blog_id: ctx.query.blogId,
-      title: '标题11',
-      content: '内容11',
-      post_time: new Date()
-    };
+  //   let blog = {
+  //     blog_id: ctx.query.blogId,
+  //     title: '标题11',
+  //     content: '内容11',
+  //     post_time: new Date()
+  //   };
 
-    ctx.body = {
-      state: 'success',
-      blog,
-    };
-  });
+  //   ctx.body = {
+  //     state: 'success',
+  //     blog,
+  //   };
+  
 
   router.post('/post',blogController.postBlog);
 

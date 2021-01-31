@@ -3,7 +3,7 @@ const { createToken } = require("../auth")
 
 module.exports = {
     login: async function (ctx, next) {
-        // 1.接数据
+        // 1.接数据 post方式传递参数时，使用ctx.request.body接收参数
         let { username, password } = ctx.request.body;
         // 2.验证
 
@@ -26,6 +26,51 @@ module.exports = {
         } else {
             ctx.body = {
                 state: "fail"
+            }
+        }
+    },
+    regist: async function (ctx, next) {
+        // 1.接数据 post方式传递参数时，使用ctx.request.body接收参数
+        let { username, password, nickname } = ctx.request.body;
+        // 2.验证
+        if (username.trim().length == 0) {
+            await ctx.render('error', {
+                message: "用户名不能为空！"
+            })
+        } else if (password.trim().length == 0) {
+            await ctx.render('error', {
+                message: "密码不能为空！"
+            })
+        } else if (nickname.trim().length == 0) {
+            await ctx.render('error', {
+                message: "昵称不能为空！"
+            })
+        } else {
+            let results = await userModel.saveUser({ username, password, nickname });
+            // console.log(results.insertId);
+            if(results.insertId > 0){
+                ctx.body = {
+                    state: "success"
+                }
+            } else {
+                ctx.body = {
+                    state: "fail"
+                }
+            }
+        }
+    },
+    checkUser: async function (ctx,next) {
+        // ctx.query：获取传递给路由/user/checkUser的参数
+        // 将username解构出来
+        let { username } = ctx.query;
+        let results = await userModel.getUserByUsername(username);
+        if(results.length > 0) {
+            ctx.body = {
+                state: "fail"
+            }
+        } else {
+            ctx.body = {
+                state: "success"
             }
         }
     }

@@ -1,16 +1,26 @@
 <template>
   <div class="container">
-    <button @click="goPostBlog">发表文章</button>
+    <header>
+      <div class="title">MyBlog</div>
+      <button @click="goPostBlog">发表文章</button>
+      <div class="login-box">
+        <span v-show="isLogin">{{ username }}</span>
+        <span v-show="!isLogin">
+          <router-link to="/login">登录</router-link> /
+          <router-link to="/regist">注册</router-link>
+        </span>
+      </div>
+    </header>
     <div class="blog-list">
       <div class="blog" v-for="item in blogList" :key="item.blogId">
         <h3 class="blog-title">
           <!-- <a href="/blog/detail/">{{ item.title }}</a> -->
-          <router-link :to="{ path: '/blog/detail/' + item.blogId }">{{
+          <router-link :to="{ path: '/blog/detail/' + item.blog_id }">{{
             item.title
           }}</router-link>
         </h3>
         <p class="blog-content">{{ item.content }}</p>
-        <span class="post-time">{{ item.postTime }}</span>
+        <span class="post-time">{{ item.post_time }}</span>
       </div>
     </div>
   </div>
@@ -20,32 +30,38 @@
 export default {
   data() {
     return {
-      blogList: []
+      blogList: [],
+      username: '',
+      isLogin: false
     }
   },
   created() {
+    if (this.$store.state.loginUser) {
+      this.username = this.$store.state.loginUser.username
+      this.isLogin = !this.isLogin
+    }
     this.getData()
   },
   methods: {
     getData() {
-      this.$http.get('/blog/list')
-        .then((res) => {
-          let { state } = res.data
-          if (state === 'auth-fail') {
-            alert('请求未授权-then!')
-          } else if (state === 'success') {
-            let { blogs } = res.data
-            this.blogList = blogs
-          }
-        })
-        // .catch((err) => {
-        // //   alert('请求未授权-catch!', err)
-        // // 跳转到登录页面
-        //   this.$router.push('/login')
-        // })
+      this.$http.get('/blog/list').then((res) => {
+        let { state } = res.data
+        if (state === 'auth-fail') {
+          alert('请求未授权-then!')
+        } else if (state === 'success') {
+          let { blogs } = res.data
+          this.blogList = blogs
+          // console.log(this.blogList)
+        }
+      })
+      // .catch((err) => {
+      // //   alert('请求未授权-catch!', err)
+      // // 跳转到登录页面
+      //   this.$router.push('/login')
+      // })
     },
-    goPostBlog(){
-      this.$router.push("/blog/post");
+    goPostBlog() {
+      this.$router.push('/blog/post')
     }
   }
 }

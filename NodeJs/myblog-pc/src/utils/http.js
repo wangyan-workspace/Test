@@ -27,8 +27,10 @@ instance.interceptors.response.use(function (response) {
     // 对响应错误做点什么
     let {status} = error.response;
     if(status == 401){
+        // 调用vuex里的removeToken方法，移除存储器里的Token
         store.dispatch('removeToken')
-        location.href = "/login"
+        // location.href = "/login"
+        app.$router.push('/login');//这里直接使用app来引用Vue实例
     }
     return Promise.reject(error);
 });

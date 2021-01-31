@@ -5,9 +5,11 @@ let jwt = require('jsonwebtoken');
 let secretKey = "**my_secret_key$$"
 
 module.exports = {
+    // 生成Token
     createToken: (payload)=>{
         return jwt.sign(payload, secretKey,{expiresIn: '1h'});
     },
+    // 验证Token
     verfiyToken: async (ctx,next)=>{
         if(ctx.header.authorization){
           // split: 按什么进行分割

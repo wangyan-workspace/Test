@@ -4,6 +4,8 @@ import Index from '../views/Index.vue'
 import Login from '../views/Login.vue'
 import blogDetail from '../views/blogDetail.vue'
 import postBlog from '../views/postBlog.vue'
+import Error from '../views/error.vue'
+import Regist from '../views/regist.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +29,11 @@ const routes = [
     component: Login
   },
   {
+    path: '/regist',
+    name: 'Regist',
+    component: Regist
+  },
+  {
     path: '/blog/detail/:blogId',
     name: 'blogDetail',
     component: blogDetail
@@ -35,7 +42,12 @@ const routes = [
     path: '/blog/post',
     name: 'postBlog',
     component: postBlog
-  }
+  },
+  {
+    path: '*',
+    name: 'Error',
+    component: Error
+  },
 ]
 
 const router = new VueRouter({

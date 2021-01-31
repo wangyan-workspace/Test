@@ -32,10 +32,10 @@ export default {
           if (state === 'success') {
             // console.log('登陆成功')
             // 登陆成功,跳转到路由
-            // 存登录用户信息
+            // 存登录用户信息  this.$store.commit调用vuex的同步的方法
             this.$store.commit('storeLoginUser', user)
             // 存储token
-            // 调用vuex里的store里的方法
+            // 调用vuex里的store里的方法  this.$store.dispatch调用vuex的异步的方法
             this.$store.dispatch('setToken', token)
             // 跳转到首页的路由
             this.$router.push('/')

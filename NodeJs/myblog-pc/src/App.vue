@@ -43,17 +43,19 @@ ol {
   list-style: none;
 }
 
-/* 能用样式 */
+/* 通用样式 */
 .container {
-  width: 1200px;
+  width: 1200rpx;
   margin: 0 auto;
 }
 header {
-  height: 50px;
-  background: #cccccc;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    height: 50px;
+    background: #6d9cec;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    /* 文本垂直居中对齐 */
+    align-items: center;
+    opacity: 0.8;
 }
 </style>
