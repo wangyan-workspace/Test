@@ -40,11 +40,21 @@ export default {
         .then((res) => {
           let { state } = res.data
           console.log(state)
-          if (state === 'success') {
-            this.$router.push('/login')
-          } else {
-            alert('注册失败，请认真填写用户信息，重新注册')
+          if (state === 'no username') {
+            alert('用户名不能为空')
             this.$router.push('/regist')
+          } else if (state === 'no password') {
+            alert('密码不能为空')
+            this.$router.push('/regist')
+          } else if (state === 'no nickname') {
+            alert('昵称不能为空')
+            this.$router.push('/regist')
+          } else {
+            if (state === 'success') {
+              this.$router.push('/login')
+            } else {
+              alert("海燕呐~，你可长点心吧，重新注册😠")
+            }
           }
         })
     },

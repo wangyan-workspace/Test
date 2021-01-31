@@ -34,21 +34,21 @@ module.exports = {
         let { username, password, nickname } = ctx.request.body;
         // 2.验证
         if (username.trim().length == 0) {
-            await ctx.render('error', {
-                message: "用户名不能为空！"
-            })
+            ctx.body = {
+                state: "no username"
+            }
         } else if (password.trim().length == 0) {
-            await ctx.render('error', {
-                message: "密码不能为空！"
-            })
+            ctx.body = {
+                state: "no password"
+            }
         } else if (nickname.trim().length == 0) {
-            await ctx.render('error', {
-                message: "昵称不能为空！"
-            })
+            ctx.body = {
+                state: "no nickname"
+            }
         } else {
             let results = await userModel.saveUser({ username, password, nickname });
             // console.log(results.insertId);
-            if(results.insertId > 0){
+            if (results.insertId > 0) {
                 ctx.body = {
                     state: "success"
                 }
@@ -59,12 +59,13 @@ module.exports = {
             }
         }
     },
-    checkUser: async function (ctx,next) {
+    checkUser: async function (ctx, next) {
         // ctx.query：获取传递给路由/user/checkUser的参数
         // 将username解构出来
         let { username } = ctx.query;
         let results = await userModel.getUserByUsername(username);
-        if(results.length > 0) {
+        console.log(results)
+        if (results.length > 0) {
             ctx.body = {
                 state: "fail"
             }
