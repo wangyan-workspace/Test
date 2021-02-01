@@ -46,7 +46,7 @@ export default {
       // 先判断出用户是否登录，登录成功之后才可以发表文章
       if (loginUser) {
         this.$http
-          .post('/blog/postComment', {
+          .post('/blog/post', {
             title: this.title,
             content: this.content,
             userId: loginUser.user_id
