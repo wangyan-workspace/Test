@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '../store'
+import app from '../main'
 
 const instance = axios.create({
     baseURL: 'http://localhost:3000',
