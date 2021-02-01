@@ -116,5 +116,51 @@ module.exports = {
                 state: "fail"
             }
         }
+    },
+    getBlogId: async function (ctx,next) {
+        // ctx.query获取路由传递的参数
+        let { blogId } = ctx.query;
+
+        let results = await blogModel.getOneBlogById(blogId);
+        // console.log(results);
+        /*
+            [
+                RowDataPacket {
+                    blog_id: 12,
+                    title: '完事啦，(*^▽^*)',
+                    content: '差不多了吧',
+                    post_time: 2021-01-31T10:27:03.000Z,
+                    user_id: 2
+                }
+            ]
+        */
+       if(results.length>0){
+           let blogMessage = results[0]
+        //    console.log(blogMessage)
+           ctx.body = {
+               state: 'success',
+               blogMessage
+           }
+       } else {
+        ctx.body = {
+            state: 'fail',
+        }
+       }
+    },
+    postComment: async function (ctx, next) {
+        // 1.接数据 post方式传递参数时，使用ctx.request.body接收参数
+        let { content, blog_id, user_id} = ctx.request.body;
+        // 2.验证
+        // 3.连接数据库
+        let results = await blogModel.saveComment( content, blog_id, user_id);
+        if(results.insertId > 0){
+            ctx.body = {
+                state: "success"
+            }
+        } else {
+            ctx.body = {
+                state: "fail"
+            }
+        }
     }
 }

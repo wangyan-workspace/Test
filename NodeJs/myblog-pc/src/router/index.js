@@ -6,6 +6,7 @@ import blogDetail from '../views/blogDetail.vue'
 import postBlog from '../views/postBlog.vue'
 import Error from '../views/error.vue'
 import Regist from '../views/regist.vue'
+import commentBlog from '../views/commentBlog.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,11 @@ const routes = [
     path: '/blog/post',
     name: 'postBlog',
     component: postBlog
+  },
+  {
+    path: '/blog/content/:blogId',
+    name: 'commentBlog',
+    component: commentBlog
   },
   {
     path: '*',

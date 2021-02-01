@@ -3,8 +3,11 @@
     <header>
       <div class="title">MyBlog</div>
       <div class="login-box">
-        <router-link to="/login">登录</router-link> /
-        <router-link to="/regist">注册</router-link>
+        <span v-show="isLogin">{{ username }}</span>
+        <span v-show="!isLogin">
+          <router-link to="/login">登录</router-link> /
+          <router-link to="/regist">注册</router-link>
+        </span>
       </div>
     </header>
     <div class="blog">
@@ -16,15 +19,16 @@
       <div class="comments">
         <h4>评论</h4>
 
-        <div class="comment" v-for="item in comments" :key = "item.comm_id">
-          <div class="comment-content">{{item.comm_content}}</div>
+        <div class="comment" v-for="item in comments" :key="item.comm_id">
+          <div class="comment-content">{{ item.comm_content }}</div>
           <div class="comment-info">
-            <span class="userinfo">{{item.username}}</span> 
-            <span class="post-time">{{item.comm_post_time}}</span>
+            <span class="userinfo">{{ item.username }}</span>
+            <span class="post-time">{{ item.comm_post_time }}</span>
           </div>
         </div>
       </div>
     </div>
+    <router-link to="/">回到首页</router-link>
   </div>
 </template>
 
@@ -33,10 +37,16 @@ export default {
   data() {
     return {
       blog: null,
-      comments: ""
+      comments: '',
+      username: '',
+      isLogin: false
     }
   },
   created() {
+    if (this.$store.state.loginUser) {
+      this.username = this.$store.state.loginUser.username
+      this.isLogin = !this.isLogin
+    }
     // 获取路由上传递的参数
     // console.log(this.$route.params)
     this.getBlogDetail()
@@ -88,7 +98,7 @@ export default {
 .comment-info {
   float: right;
 }
-.userinfo{
-  margin-right: 30px
+.userinfo {
+  margin-right: 30px;
 }
 </style>

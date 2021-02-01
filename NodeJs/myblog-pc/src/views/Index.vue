@@ -21,6 +21,10 @@
         </h3>
         <p class="blog-content">{{ item.content }}</p>
         <span class="post-time">{{ item.post_time }}</span>
+        <p class="comment">
+          <router-link :to="{ path: '/blog/content/' + item.blog_id }">评论一下</router-link>
+          <!-- <router-link to="/commentBlog">评论一下</router-link> -->
+        </p>
       </div>
     </div>
   </div>
@@ -83,5 +87,8 @@ export default {
 .blog-content,
 .post-time {
   margin: 20px 0;
+}
+.comment {
+  float: right
 }
 </style>

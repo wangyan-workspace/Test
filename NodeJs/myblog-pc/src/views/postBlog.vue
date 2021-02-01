@@ -14,7 +14,7 @@
       <h1>发表文章</h1>
       <p>标题：<input type="text" v-model="title" /></p>
       <div style="float: left">内容：</div>
-     <textarea name="" id="" cols="165" rows="40" v-model="content"></textarea>
+      <textarea name="" id="" cols="165" rows="40" v-model="content"></textarea>
 
       <p>
         <button @click="postBlog">发表</button>
@@ -46,7 +46,7 @@ export default {
       // 先判断出用户是否登录，登录成功之后才可以发表文章
       if (loginUser) {
         this.$http
-          .post('/blog/post', {
+          .post('/blog/postComment', {
             title: this.title,
             content: this.content,
             userId: loginUser.user_id

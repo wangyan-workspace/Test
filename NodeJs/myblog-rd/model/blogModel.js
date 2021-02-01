@@ -18,5 +18,15 @@ module.exports = {
         ON comm.blog_id=blog.blog_id 
         LEFT JOIN t_user usr ON comm.user_id=usr.user_id
         WHERE blog.blog_id=?`, [blogId]);
+    },
+    saveComment(content, blog_id, user_id){
+        return db.query("insert into t_comment set ?", {
+            content,
+            blog_id,
+            user_id
+        });
+    },
+    getOneBlogById(blogId){
+        return db.query("select * from t_blog where blog_id=?",[blogId])
     }
 }
