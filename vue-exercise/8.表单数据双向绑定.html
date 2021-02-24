@@ -22,7 +22,7 @@
             技能（多选框）:
             <input type="checkbox" name="skills" value="java" v-model="skills">Java开发
             <input type="checkbox" name="skills" value="vue" v-model="skills">Vue.js开发
-            <input type="checkbox" name="skills" value="pytgon" v-model="skills">Python开发
+            <input type="checkbox" name="skills" value="python" v-model="skills">Python开发
             <br>
 
             城市（下拉框）:
@@ -55,6 +55,7 @@
             },
             methods:{
                 submitForm:function(){
+                    // 模板字符串
                     alert(`${this.name},${this.sex},${this.skills},${this.city},${this.content}`)
                 }
             }
