@@ -9,6 +9,7 @@ function getData(){
         if(data){
           resolve(data);
         }else{
+          // reject返回出错时信息
           reject('fail...');
         }
       },2000)

@@ -4,3 +4,5 @@ GET localhost:3000/login/doc Sat Jan 23 2021 09:57:30 GMT+0800 (中国标准时�
 GET localhost:3000/login/doc/xxx Sat Jan 23 2021 09:57:38 GMT+0800 (中国标准时间)
 GET localhost:3000/login/doc/xxx Sat Jan 23 2021 10:03:20 GMT+0800 (中国标准时间)
 GET localhost:3000/login/doc/xxx/hhaa Sat Jan 23 2021 10:03:31 GMT+0800 (中国标准时间)
+GET localhost:3000/ Wed Apr 07 2021 11:11:19 GMT+0800 (中国标准时间)
+GET localhost:3000/favicon.ico Wed Apr 07 2021 11:11:21 GMT+0800 (中国标准时间)

@@ -10,6 +10,7 @@ const app = new Koa()
 // }
 // 同步操作，不需要加async
 app.use(( ctx ) => {
+  // ctx：上下文 在页面中显示的内容
   ctx.body = 'hello koa2'
 })
 
